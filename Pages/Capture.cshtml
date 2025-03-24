@@ -1,0 +1,143 @@
+﻿@page
+@model ProBono.Pages.CaptureModel
+@{
+}
+<div style="background-color:aqua; padding:10px;">
+    <p>We are able to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+    <p>In order for use to lorem ipsum dolor sit amet, consectetur adipiscing elit, you will need to fill out the information below.</p>
+    <form method="post" asp-page="/Capture">
+        <!-- Name Field (Required) -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <!-- Phone Number Field (Required) -->
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+            <input type="tel" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <!-- Email Field (Optional) -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email (Optional)</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+
+        <!-- Radio Button Selection -->
+        <div class="mb-3">
+            <label class="form-label">Select an Option:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="selection" id="application" value="application" required>
+                <label class="form-check-label" for="application">Application</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="selection" id="recertification" value="recertification" required>
+                <label class="form-check-label" for="recertification">Recertification</label>
+            </div>
+        </div>
+
+        <!-- Date Field -->
+        <div class="mb-3">
+            <label for="date" class="form-label">When did you submit your application/recertification?</label>
+            <input type="date" class="form-control" id="formdate" name="formdate">
+        </div>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur venenatis, elit eget aliquam cursus, ante libero vehicula orci, vel tincidunt purus magna a odio. Integer in risus at augue tempus facilisis non ac urna. Vivamus feugiat libero a lorem mollis, ac vestibulum justo tempus. Nullam sollicitudin volutpat neque, non gravida erat tempor at. Sed vitae viverra justo, at placerat sem.
+        </p>
+        <p>
+            Proin sit amet turpis ac risus posuere elementum et et leo. Suspendisse potenti. Sed non eros id ipsum dictum gravida nec a lectus. Ut consectetur orci turpis, sed volutpat eros pretium a. Fusce ac sapien non lorem tincidunt faucibus at at turpis. Integer non metus ut ante hendrerit elementum. Cras tristique, lectus id auctor aliquam, orci nulla sodales felis, eget vestibulum mi nulla sit amet erat.
+        </p>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="agree" id="agree">
+            <label class="form-check-label" style="font-weight:bold" for="agree">
+                Check this box if you want to sign a Lorem ipsum dolor DOCUMENT
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="agree" id="notagree">
+            <label class="form-check-label" style="font-weight:bold" for="notagree">
+                Check this box if you do <b>NOT</b> want to sign a Lorem ipsum dolor DOCUMENT. if you check this box, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </label>
+        </div>
+
+        <p class="mt-2">HERE IS THE Lorem ipsum dolor DOCUMENT (<a href="#">https://linktosomedocument</a>) PLEASE DOWNLOAD AND EMAIL BACK TO (xxxxx@xxx.xxx)</p>
+
+        <div style="border: 2px solid black; width: 100%; font-weight: bold;">
+            if you need help with this form due to a disability, or you do not have an email address and would like to talk to a member of our team by phone, please <a href="javascript:void(0)" id="openPopup">click here</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+<div id="myPopup" class="popup">
+    <div class="popup-content">
+        <p>Text (888) 888-8888 with your name and phone number, and someone will call you between the hours of 9 am EST and 8 pm EST.</p>
+        <button class="close-btn" id="closePopup">Close</button>
+    </div>
+</div>
+
+<script>
+    // Get the elements
+    const openPopup = document.getElementById('openPopup');
+    const popup = document.getElementById('myPopup');
+    const closePopup = document.getElementById('closePopup');
+
+    // Open the popup when the link is clicked
+    openPopup.addEventListener('click', function() {
+        popup.style.display = 'flex';
+    });
+
+    // Close the popup when the close button is clicked
+    closePopup.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
+    // Close the popup if the user clicks anywhere outside the popup content
+    window.addEventListener('click', function(event) {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+        }
+    });
+</script>
+
+<style>
+    /* Style the popup container */
+    .popup {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Style the content of the popup */
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    /* Close button style */
+    .close-btn {
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+</style>

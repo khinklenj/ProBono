@@ -1,0 +1,47 @@
+﻿@page 
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div style="background-color:aqua; padding:10px;">
+<div class="text-left">
+    <span style="font-weight:bold">Pro Bono DLA Piper submission</span>
+</div>
+
+    <div class="text-center mt-1">
+        <img src="~/img/Header3.png" class="img-fluid" alt="Header Image" />
+    </div>
+<div class="text-left mt-1">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, eros at hendrerit sollicitudin, augue odio elementum ligula, in convallis justo tortor vel urna. Integer facilisis, nisi ac sodales rhoncus, metus ex venenatis purus, in suscipit lacus nunc et ligula. Fusce vehicula orci non metus tristique, at auctor nunc consectetur. Curabitur suscipit justo at metus egestas, nec rhoncus mauris fermentum. Nam convallis tellus sit amet tincidunt elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+    <p>Suspendisse potenti. Curabitur sit amet ex at nunc posuere fermentum. Ut non odio sit amet ligula dignissim feugiat ac at justo. Quisque fermentum pharetra dui a tincidunt. Aenean sed arcu vitae quam auctor scelerisque at a ligula. Donec in libero in metus faucibus faucibus ut nec risus. Nam luctus lacus sed tortor feugiat, sit amet luctus purus lacinia. Morbi efficitur bibendum eros, id ullamcorper ex convallis eu. Vestibulum molestie auctor sapien, sed tincidunt felis interdum et. Nunc scelerisque, orci eget sollicitudin vulputate, felis tortor pharetra enim, et fringilla metus eros et erat.</p>
+    <p>Praesent sed sapien id quam fringilla fermentum. Phasellus aliquam euismod mauris, sed facilisis erat vehicula vel. Duis ultricies massa non nunc facilisis bibendum. Vivamus in nibh id libero sagittis lacinia vel a nisl. Fusce venenatis mauris at libero molestie, nec fermentum felis ultricies. Ut vestibulum, justo eu vestibulum sodales, lacus eros faucibus nulla, id imperdiet lacus felis at lacus. Cras ut metus dignissim, posuere nunc eget, vestibulum risus. Nam vulputate justo at enim ultrices, ut tempor ipsum volutpat. Sed eget libero varius, euismod metus nec, tincidunt nulla.</p>
+    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; sed at lacus ac justo feugiat aliquam.</p>
+    <ol>
+        <li>a. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+        <li>b. Suspendisse potenti. Curabitur sit amet ex at nunc posuere fermentum.</li>
+        <li>c. Praesent sed sapien id quam fringilla fermentum. Phasellus aliquam euismod mauris, sed facilisis erat vehicula vel.</li>
+    </ol>
+    <span>Phasellus aliquam euismod mauris, sed facilisis erat vehicula vel. Duis ultricies massa non nunc facilisis bibendum.</span>
+    <br/>
+    <form method="post" id="myForm" asp-page="/Capture">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="agree" id="agree" required>
+            <label class="form-check-label" style="font-weight:bold" for="agree">
+                I agree this statement is true
+            </label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            if (!document.getElementById("agree").checked) {
+                event.preventDefault();
+                alert("You must agree to the statement before submitting.");
+            }
+        });
+    </script>
+
+</div>
+</div>
