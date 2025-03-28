@@ -35,11 +35,29 @@ namespace ProBono.Pages
 
         private void SendEmail(FormData formData)
         {
+            if (!string.IsNullOrEmpty(Form.Email))
+            {
+                CustomerEmail(formData);
+            }
+
+            switch (Form.documentSelectionGroup)
+            {
+                case "signed":
+                    SignedEmail(formData);
+                    break;
+                case "notsigned":
+                    NotSigned(formData);
+                    break;
+            }
+        }
+
+        private void CustomerEmail(FormData formData)
+        {
             var fromEmail = new MailAddress("khinklenj@gmail.com", "Keith Hinkle");
             var toEmail = new MailAddress("keith@creativesimplex.com");
             var subject = "Form Submission";
             var body = $"Name: {formData.Name}\nPhone: {formData.Phone}\nEmail: {formData.Email}\n" +
-                        $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.Agree}\n";
+                        $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.documentSelectionGroup}\n";
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
@@ -57,6 +75,57 @@ namespace ProBono.Pages
                 smtpClient.Send(message);
             }
         }
+
+        private void SignedEmail(FormData formData)
+        {
+            var fromEmail = new MailAddress("khinklenj@gmail.com", "Keith Hinkle");
+            var toEmail = new MailAddress("keith@creativesimplex.com");
+            var subject = "Form Submission";
+            var body = $"Name: {formData.Name}\nPhone: {formData.Phone}\nEmail: {formData.Email}\n" +
+                        $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.documentSelectionGroup}\n";
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("khinklenj@gmail.com", "xxxxx"),
+                EnableSsl = true,
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtpClient.Send(message);
+            }
+        }
+
+        private void NotSigned(FormData formData)
+        {
+            var fromEmail = new MailAddress("khinklenj@gmail.com", "Keith Hinkle");
+            var toEmail = new MailAddress("keith@creativesimplex.com");
+            var subject = "Form Submission";
+            var body = $"Name: {formData.Name}\nPhone: {formData.Phone}\nEmail: {formData.Email}\n" +
+                        $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.documentSelectionGroup}\n";
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("khinklenj@gmail.com", "xxxxx"),
+                EnableSsl = true,
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtpClient.Send(message);
+            }
+        }
+
     }
 
     // Form Data Model
@@ -67,8 +136,7 @@ namespace ProBono.Pages
         public string Email { get; set; }
         public string Selection { get; set; }
         public string FormDate { get; set; }
-        public bool Agree { get; set; }
-        public bool NotAgree { get; set; }
+        public string documentSelectionGroup { get; set; }
     }
 
 

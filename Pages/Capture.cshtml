@@ -28,7 +28,7 @@
         <div class="mb-3">
             <label class="form-label">Select an Option:</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="selection" id="application" value="application" required>
+                <input class="form-check-input" type="radio" name="selection" id="application" value="application" checked>
                 <label class="form-check-label" for="application">Application</label>
             </div>
             <div class="form-check">
@@ -49,19 +49,20 @@
         <p>
             Proin sit amet turpis ac risus posuere elementum et et leo. Suspendisse potenti. Sed non eros id ipsum dictum gravida nec a lectus. Ut consectetur orci turpis, sed volutpat eros pretium a. Fusce ac sapien non lorem tincidunt faucibus at at turpis. Integer non metus ut ante hendrerit elementum. Cras tristique, lectus id auctor aliquam, orci nulla sodales felis, eget vestibulum mi nulla sit amet erat.
         </p>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="agree" id="agree">
-            <label class="form-check-label" style="font-weight:bold" for="agree">
-                Check this box if you want to sign a Lorem ipsum dolor DOCUMENT
-            </label>
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="agree" id="notagree">
-            <label class="form-check-label" style="font-weight:bold" for="notagree">
-                Check this box if you do <b>NOT</b> want to sign a Lorem ipsum dolor DOCUMENT. if you check this box, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </label>
+        <!-- Radio Button Selection -->
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="documentSelectionGroup" id="signed" value="signed" checked>
+                <label class="form-check-label" for="signed">
+                    Check this box if you want to sign a Lorem ipsum dolor DOCUMENT
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="documentSelectionGroup" id="notsigned" value="notsigned" required>
+                <label class="form-check-label" for="notsigned">
+                    Check this box if you do <b>NOT</b> want to sign a Lorem ipsum dolor DOCUMENT. If you check this box, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </label>
+            </div>
         </div>
 
         <p class="mt-2">HERE IS THE Lorem ipsum dolor DOCUMENT (<a href="#">https://linktosomedocument</a>) PLEASE DOWNLOAD AND EMAIL BACK TO (xxxxx@xxx.xxx)</p>
