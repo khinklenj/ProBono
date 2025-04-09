@@ -7,11 +7,11 @@ namespace ProBono.Pages
 {
     public class CaptureModel : PageModel
     {
-        private readonly IConfiguration _configuration;
+        private string configEmail = string.Empty;
 
         public CaptureModel(IConfiguration configuration)
         {
-            _configuration = configuration;
+            configEmail = configuration["ContactSettings:EmailAddress"];
         }
 
         [BindProperty]
@@ -62,7 +62,7 @@ namespace ProBono.Pages
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("khinklenj@gmail.com", "xxxxx"),
+                Credentials = new NetworkCredential(configEmail, "xxxxx"),
                 EnableSsl = true,
             };
 
@@ -87,7 +87,7 @@ namespace ProBono.Pages
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("khinklenj@gmail.com", "xxxxx"),
+                Credentials = new NetworkCredential(configEmail, "xxxxx"),
                 EnableSsl = true,
             };
 
@@ -112,7 +112,7 @@ namespace ProBono.Pages
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("khinklenj@gmail.com", "xxxxx"),
+                Credentials = new NetworkCredential(configEmail, "xxxxx"),
                 EnableSsl = true,
             };
 

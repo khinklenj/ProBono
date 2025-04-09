@@ -12,16 +12,34 @@
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
 
-        <!-- Phone Number Field (Required) -->
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
-            <input type="tel" class="form-control" id="phone" name="phone" required>
+        <div class="row">
+            <!-- First Phone Field -->
+            <div class="col-md-6 mb-3">
+                <label for="phone1" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                <input type="tel" class="form-control" id="phone1" name="phone1" required>
+            </div>
+
+            <!-- Confirm Phone Field -->
+            <div class="col-md-6 mb-3">
+                <label for="phone2" class="form-label">Confirm Phone Number <span class="text-danger">*</span></label>
+                <input type="tel" class="form-control" id="phone2" name="phone2" required>
+                <div class="invalid-feedback">Phone numbers do not match.</div>
+            </div>
         </div>
 
-        <!-- Email Field (Optional) -->
-        <div class="mb-3">
-            <label for="email" class="form-label">Email (Optional)</label>
-            <input type="email" class="form-control" id="email" name="email">
+        <div class="row">
+            <!-- Email Field -->
+            <div class="col-md-6 mb-3">
+                <label for="email1" class="form-label">Email (Optional)</label>
+                <input type="email" class="form-control" id="email1" name="email1">
+            </div>
+
+            <!-- Confirm Email Field -->
+            <div class="col-md-6 mb-3">
+                <label for="email2" class="form-label">Confirm Email (Optional)</label>
+                <input type="email" class="form-control" id="email2" name="email2">
+                <div class="invalid-feedback">Emails do not match.</div>
+            </div>
         </div>
 
         <!-- Radio Button Selection -->
@@ -84,6 +102,9 @@
 </div>
 
 <script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("formdate").max = today;
+
     // Get the elements
     const openPopup = document.getElementById('openPopup');
     const popup = document.getElementById('myPopup');
@@ -103,6 +124,50 @@
     window.addEventListener('click', function(event) {
         if (event.target === popup) {
             popup.style.display = 'none';
+        }
+    });
+
+        const phone1 = document.getElementById('phone1');
+    const phone2 = document.getElementById('phone2');
+
+    // Optional: validate on form submit
+    phone2.form.addEventListener('submit', function (e) {
+        if (phone1.value !== phone2.value) {
+            phone2.classList.add('is-invalid');
+            e.preventDefault(); // Prevent form submission
+        } else {
+            phone2.classList.remove('is-invalid');
+        }
+    });
+
+    // Optional: validate live while typing
+    phone2.addEventListener('input', function () {
+        if (phone1.value !== phone2.value) {
+            phone2.classList.add('is-invalid');
+        } else {
+            phone2.classList.remove('is-invalid');
+        }
+    });
+
+        const email1 = document.getElementById('email1');
+    const email2 = document.getElementById('email2');
+
+    // Validate on form submit
+    email2.form.addEventListener('submit', function (e) {
+        if (email1.value && email2.value && email1.value !== email2.value) {
+            email2.classList.add('is-invalid');
+            e.preventDefault(); // Prevent form submission
+        } else {
+            email2.classList.remove('is-invalid');
+        }
+    });
+
+    // Validate live as user types
+    email2.addEventListener('input', function () {
+        if (email1.value && email2.value && email1.value !== email2.value) {
+            email2.classList.add('is-invalid');
+        } else {
+            email2.classList.remove('is-invalid');
         }
     });
 </script>
