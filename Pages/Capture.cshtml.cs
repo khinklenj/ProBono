@@ -7,11 +7,15 @@ namespace ProBono.Pages
 {
     public class CaptureModel : PageModel
     {
-        private string configEmail = string.Empty;
+        private string customerAttentionEmail = string.Empty;
+        private string signedAttentionEmail = string.Empty;
+        private string notsignedAttentionEmail = string.Empty;
 
         public CaptureModel(IConfiguration configuration)
         {
-            configEmail = configuration["ContactSettings:EmailAddress"];
+            customerAttentionEmail = configuration["ContactSettings:CustomerAttentionEmailAddress"];
+            signedAttentionEmail = configuration["ContactSettings:SignedAttentionEmailAddress"];
+            notsignedAttentionEmail = configuration["ContactSettings:NotsignedAttentionEmailAddress"];
         }
 
         [BindProperty]
@@ -62,7 +66,7 @@ namespace ProBono.Pages
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(configEmail, "xxxxx"),
+                Credentials = new NetworkCredential(customerAttentionEmail, "xxxxx"),
                 EnableSsl = true,
             };
 
@@ -87,7 +91,7 @@ namespace ProBono.Pages
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(configEmail, "xxxxx"),
+                Credentials = new NetworkCredential(signedAttentionEmail, "xxxxx"),
                 EnableSsl = true,
             };
 
@@ -112,7 +116,7 @@ namespace ProBono.Pages
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(configEmail, "xxxxx"),
+                Credentials = new NetworkCredential(notsignedAttentionEmail, "xxxxx"),
                 EnableSsl = true,
             };
 
