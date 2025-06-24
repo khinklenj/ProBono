@@ -32,9 +32,14 @@ namespace ProBono.Pages
             {
                 // Send email when form is submitted
                 SendEmail(Form);
-                return RedirectToPage("/ThankYou"); // Redirect to a thank-you page or confirmation
+                return RedirectToPage("/ThankYou"); 
             }
-            return Page(); // Return the page if the model is invalid
+
+            if (!string.IsNullOrEmpty(Form.Name)) {
+                return RedirectToPage("/ThankYou"); 
+            }
+
+            return Page(); 
         }
 
         private void SendEmail(FormData formData)
