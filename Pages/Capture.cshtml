@@ -57,7 +57,7 @@
 
         <!-- Date Field -->
         <div class="mb-3">
-            <label for="date" class="form-label">When did you submit your application/recertification?</label>
+            <label for="formdate" class="form-label">When did you submit your application/recertification?</label>
             <input type="date" class="form-control" id="formdate" name="formdate">
         </div>
 
@@ -103,10 +103,18 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Set max date to today
-    const today = new Date().toISOString().split('T')[0];
     const formDateInput = document.getElementById("formdate");
-    if (formDateInput) formDateInput.max = today;
+    if (formDateInput) {
+        const today = new Date();
+        const maxDate = today.toISOString().split('T')[0];
+
+        const minDateObj = new Date();
+        minDateObj.setDate(today.getDate() - 30);
+        const minDate = minDateObj.toISOString().split('T')[0];
+
+        formDateInput.max = maxDate;
+        formDateInput.min = minDate;
+    }
 
     // Popup handlers
     const popup = document.getElementById('myPopup');
