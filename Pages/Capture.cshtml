@@ -114,11 +114,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Set min date to 30 days before today
         const minDate = new Date(today);
-        minDate.setDate(minDate.getDate() - 30);
+        minDate.setDate(minDate.getDate() - 31);
         const minDateStr = minDate.toISOString().split('T')[0];
 
-        formDateInput.max = maxDate;
-        formDateInput.min = minDateStr;
+        formDateInput.max = minDateStr;
     }
 
     // Popup handlers
