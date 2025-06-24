@@ -1,7 +1,5 @@
 ﻿@page
 @model ProBono.Pages.CaptureModel
-@{
-}
 <div style="background-color:aqua; padding:10px;">
     <p>We are able to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
     <p>In order for use to lorem ipsum dolor sit amet, consectetur adipiscing elit, you will need to fill out the information below.</p>
@@ -17,6 +15,7 @@
             <div class="col-md-6 mb-3">
                 <label for="phone1" class="form-label">Phone Number <span class="text-danger">*</span></label>
                 <input type="tel" class="form-control" id="phone1" name="phone1" required>
+                <div class="invalid-feedback">Phone numbers do not match.</div>
             </div>
 
             <!-- Confirm Phone Field -->
@@ -32,6 +31,7 @@
             <div class="col-md-6 mb-3">
                 <label for="email1" class="form-label">Email (Optional)</label>
                 <input type="email" class="form-control" id="email1" name="email1">
+                <div class="invalid-feedback">Emails do not match.</div>
             </div>
 
             <!-- Confirm Email Field -->
@@ -102,75 +102,132 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Set max date to today
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById("formdate").max = today;
+    const formDateInput = document.getElementById("formdate");
+    if (formDateInput) formDateInput.max = today;
 
-    // Get the elements
-    const openPopup = document.getElementById('openPopup');
+    // Popup handlers
     const popup = document.getElementById('myPopup');
-    const closePopup = document.getElementById('closePopup');
-
-    // Open the popup when the link is clicked
-    openPopup.addEventListener('click', function() {
-        popup.style.display = 'flex';
+    document.getElementById('openPopup')?.addEventListener('click', () => {
+        if (popup) popup.style.display = 'flex';
+    });
+    document.getElementById('closePopup')?.addEventListener('click', () => {
+        if (popup) popup.style.display = 'none';
+    });
+    window.addEventListener('click', event => {
+        if (event.target === popup) popup.style.display = 'none';
     });
 
-    // Close the popup when the close button is clicked
-    closePopup.addEventListener('click', function() {
-        popup.style.display = 'none';
-    });
-
-    // Close the popup if the user clicks anywhere outside the popup content
-    window.addEventListener('click', function(event) {
-        if (event.target === popup) {
-            popup.style.display = 'none';
-        }
-    });
-
-        const phone1 = document.getElementById('phone1');
+    // Form validation
+    const form = document.querySelector('form');
+    const phone1 = document.getElementById('phone1');
     const phone2 = document.getElementById('phone2');
-
-    // Optional: validate on form submit
-    phone2.form.addEventListener('submit', function (e) {
-        if (phone1.value !== phone2.value) {
-            phone2.classList.add('is-invalid');
-            e.preventDefault(); // Prevent form submission
-        } else {
-            phone2.classList.remove('is-invalid');
-        }
-    });
-
-    // Optional: validate live while typing
-    phone2.addEventListener('input', function () {
-        if (phone1.value !== phone2.value) {
-            phone2.classList.add('is-invalid');
-        } else {
-            phone2.classList.remove('is-invalid');
-        }
-    });
-
-        const email1 = document.getElementById('email1');
+    const email1 = document.getElementById('email1');
     const email2 = document.getElementById('email2');
 
-    // Validate on form submit
-    email2.form.addEventListener('submit', function (e) {
-        if (email1.value && email2.value && email1.value !== email2.value) {
-            email2.classList.add('is-invalid');
-            e.preventDefault(); // Prevent form submission
-        } else {
-            email2.classList.remove('is-invalid');
-        }
-    });
+    // Helper to set error message
+    const setInvalid = (input, message) => {
+        input.classList.add('is-invalid');
 
-    // Validate live as user types
-    email2.addEventListener('input', function () {
-        if (email1.value && email2.value && email1.value !== email2.value) {
-            email2.classList.add('is-invalid');
-        } else {
-            email2.classList.remove('is-invalid');
+        let feedback = input.nextElementSibling;
+        while (feedback && !feedback.classList.contains('invalid-feedback')) {
+            feedback = feedback.nextElementSibling;
         }
-    });
+
+        if (feedback) {
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+        }
+    };
+
+    const clearInvalid = (input) => {
+        input.classList.remove('is-invalid');
+
+        let feedback = input.nextElementSibling;
+        while (feedback && !feedback.classList.contains('invalid-feedback')) {
+            feedback = feedback.nextElementSibling;
+        }
+
+        if (feedback) {
+            feedback.textContent = '';
+            feedback.style.display = 'none';
+        }
+    };
+
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            let valid = true;
+
+            // PHONE VALIDATION
+            const phoneVal1 = phone1.value.trim();
+            const phoneVal2 = phone2.value.trim();
+
+            if (phoneVal1.length < 10) {
+                setInvalid(phone1, 'Phone number must be at least 10 characters.');
+                valid = false;
+            } else {
+                clearInvalid(phone1);
+            }
+
+            if (phoneVal1 !== phoneVal2) {
+                setInvalid(phone2, 'Phone numbers do not match.');
+                valid = false;
+            } else {
+                clearInvalid(phone2);
+            }
+
+            // EMAIL VALIDATION (optional but must match + be valid if entered)
+            const emailVal1 = email1.value.trim();
+            const emailVal2 = email2.value.trim();
+
+            if (emailVal1 || emailVal2) {
+                if (!emailVal1.includes('@@') || !emailVal1.includes('.') || emailVal1.startsWith('@@') || emailVal1.endsWith('@@')) {
+                    setInvalid(email1, 'Enter a valid email address.');
+                    valid = false;
+                } else {
+                    clearInvalid(email1);
+                }
+
+                if (emailVal1 !== emailVal2) {
+                    setInvalid(email2, 'Email addresses do not match.');
+                    valid = false;
+                } else {
+                    clearInvalid(email2);
+                }
+            } else {
+                clearInvalid(email1);
+                clearInvalid(email2);
+            }
+
+            if (!valid) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+
+        // Live validation - phone match
+        phone2?.addEventListener('input', () => {
+            if (phone1.value !== phone2.value) {
+                setInvalid(phone2, 'Phone numbers do not match.');
+            } else {
+                clearInvalid(phone2);
+            }
+        });
+
+        // Live validation - email match
+        email2?.addEventListener('input', () => {
+            if (email1.value !== email2.value) {
+                setInvalid(email2, 'Email addresses do not match.');
+            } else {
+                clearInvalid(email2);
+            }
+        });
+    }
+});
 </script>
+
 
 <style>
     /* Style the popup container */

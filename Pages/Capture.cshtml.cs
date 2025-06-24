@@ -28,7 +28,7 @@ namespace ProBono.Pages
 
         public IActionResult OnPost()
         {
-            if (!string.IsNullOrEmpty(Form.Email))
+            if (!string.IsNullOrEmpty(Form.Email1))
             {
                 // Send email when form is submitted
                 SendEmail(Form);
@@ -39,7 +39,7 @@ namespace ProBono.Pages
 
         private void SendEmail(FormData formData)
         {
-            if (!string.IsNullOrEmpty(Form.Email))
+            if (!string.IsNullOrEmpty(Form.Email1))
             {
                 CustomerEmail(formData);
             }
@@ -57,10 +57,10 @@ namespace ProBono.Pages
 
         private void CustomerEmail(FormData formData)
         {
-            var fromEmail = new MailAddress("khinklenj@gmail.com", "Keith Hinkle");
-            var toEmail = new MailAddress("keith@creativesimplex.com");
+            var fromEmail = new MailAddress(customerAttentionEmail);
+            var toEmail = new MailAddress(formData.Email1);
             var subject = "Form Submission";
-            var body = $"Name: {formData.Name}\nPhone: {formData.Phone}\nEmail: {formData.Email}\n" +
+            var body = $"Name: {formData.Name}\nPhone: {formData.Phone1}\nEmail: {formData.Email1}\n" +
                         $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.documentSelectionGroup}\n";
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -82,10 +82,10 @@ namespace ProBono.Pages
 
         private void SignedEmail(FormData formData)
         {
-            var fromEmail = new MailAddress("khinklenj@gmail.com", "Keith Hinkle");
-            var toEmail = new MailAddress("keith@creativesimplex.com");
+            var fromEmail = new MailAddress(signedAttentionEmail);
+            var toEmail = new MailAddress(formData.Email1);
             var subject = "Form Submission";
-            var body = $"Name: {formData.Name}\nPhone: {formData.Phone}\nEmail: {formData.Email}\n" +
+            var body = $"Name: {formData.Name}\nPhone: {formData.Phone1}\nEmail: {formData.Email1}\n" +
                         $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.documentSelectionGroup}\n";
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -107,10 +107,10 @@ namespace ProBono.Pages
 
         private void NotSigned(FormData formData)
         {
-            var fromEmail = new MailAddress("khinklenj@gmail.com", "Keith Hinkle");
-            var toEmail = new MailAddress("keith@creativesimplex.com");
+            var fromEmail = new MailAddress(notsignedAttentionEmail);
+            var toEmail = new MailAddress(formData.Email1);
             var subject = "Form Submission";
-            var body = $"Name: {formData.Name}\nPhone: {formData.Phone}\nEmail: {formData.Email}\n" +
+            var body = $"Name: {formData.Name}\nPhone: {formData.Phone1}\nEmail: {formData.Email1}\n" +
                         $"Selection: {formData.Selection}\nDate: {formData.FormDate}\nAgree: {formData.documentSelectionGroup}\n";
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -136,8 +136,8 @@ namespace ProBono.Pages
     public class FormData
     {
         public string Name { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        public string Phone1 { get; set; }
+        public string Email1 { get; set; }
         public string Selection { get; set; }
         public string FormDate { get; set; }
         public string documentSelectionGroup { get; set; }
